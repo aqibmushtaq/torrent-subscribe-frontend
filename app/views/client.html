@@ -15,6 +15,7 @@
             <tr>
                 <th>Name</th>
                 <th>State</th>
+                <th>Speed</th>
                 <th>Progress</th>
                 <th>Downloaded</th>
                 <th>Total</th>
@@ -24,9 +25,10 @@
         </thead>
         <tbody>
             <tr class="" ng-repeat="torrent in torrents">
-                <td class="col-xs-6">{{torrent.name}}</td>
+                <td class="col-xs-5">{{torrent.name}}</td>
                 <td class="col-xs-1">{{torrent.state}}</td>
-                <td class="col-xs-1">{{torrent.progress}}</td>
+                <td class="col-xs-1">{{torrent.download_payload_rate | bytes : 1 : true}}</td>
+                <td class="col-xs-1">{{torrent.progress | number : 2}}%</td>
                 <td class="col-xs-1">{{torrent.total_done | bytes}}</td>
                 <td class="col-xs-1">{{torrent.total_size | bytes}}</td>
                 <td class="col-xs-1">{{torrent.total_seeds}}</td>
