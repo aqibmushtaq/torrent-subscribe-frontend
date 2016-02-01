@@ -2,15 +2,15 @@
 
 /**
 * @ngdoc function
-* @name torrentSubscribeFrontendApp.controller:MainCtrl
+* @name torrentSubscribeFrontendApp.controller:SearchCtrl
 * @description
-* # MainCtrl
+* # SearchCtrl
 * Controller of the torrentSubscribeFrontendApp
 */
 angular.module('torrentSubscribeFrontendApp')
-.controller('MainCtrl', ['$scope', 'Torrents', 'TorrentClient', function ($scope, Torrents, TorrentClient) {
+.controller('SearchCtrl', ['$scope', 'Torrents', 'TorrentClient', function ($scope, Torrents, TorrentClient) {
 
-    $scope.searchTerm = "arrow";
+    $scope.searchTerm = "";
 
     $scope.torrents = [];
     $scope.updatelist = function() {
@@ -24,4 +24,5 @@ angular.module('torrentSubscribeFrontendApp')
             console.log(">>>added torrent: " + result);
         });
     };
+
 }]);
