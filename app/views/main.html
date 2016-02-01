@@ -4,12 +4,12 @@
 
 <div class="row">
     <form>
-        <div class="form-group">
-            <input type="text" class="form-control" id="search-term" ng-model="searchTerm" ng-change="updatelist()" placeholder="Search...">
-            <button class="btn btn-primary" ng-click="console.log('yooo')">Search</button>
+        <div class="form-group input-group">
+            <input type="text" class="form-control" id="search-term" autocomplete="off" ng-model="searchTerm" placeholder="Search...">
+            <div class="input-group-btn">
+                <button class="btn btn-primary" ng-click="updatelist()"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
         </div>
-
-        SEARCH "{{searchTerm}}"
     </form>
 
     <table class="table table-striped table-hover">
