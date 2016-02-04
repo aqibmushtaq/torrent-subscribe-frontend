@@ -8,10 +8,11 @@
 * Controller of the torrentSubscribeFrontendApp
 */
 angular.module('torrentSubscribeFrontendApp')
-.controller('SearchCtrl', ['$scope', 'Torrents', 'TorrentClient', function ($scope, Torrents, TorrentClient) {
+.controller('SearchCtrl', ['$scope', '$compile', 'Torrents', function ($scope, $compile, Torrents) {
 
     $scope.searchTerm = "";
 
+    $scope.torrent = {};
     $scope.torrents = [];
     $scope.updatelist = function() {
         Torrents.query($scope.searchTerm, function(data) {
@@ -19,10 +20,11 @@ angular.module('torrentSubscribeFrontendApp')
         });
     };
 
-    $scope.addTorrent = function(magnetLink) {
-        TorrentClient.add(magnetLink, function(result) {
-            console.log(">>>added torrent: " + result);
-        });
+    $scope.addTorrent = function(torrent) {
+        $scope.torrent = torrent;
+        var dialogScope = $scope.$new();
+        dialogScope.torrent = $scope.torrent;
+        angular.element('#modal-area').html($compile('<add-torrent-modal />')(dialogScope));
     };
 
 }]);

@@ -2,6 +2,8 @@
     <h1>Search</h1>
 </div>
 
+<div id="modal-area"></div>
+
 <div class="row">
     <form>
         <div class="form-group input-group">
@@ -29,7 +31,7 @@
                 <td class="col-xs-2">{{torrent.seeders}}</td>
                 <td class="col-xs-2">{{torrent.leechers}}</td>
                 <td class="col-xs-2">
-                    <button ng-click="addTorrent(torrent.magnetLink)" class="btn btn-default glyphicon glyphicon-download"></button>
+                    <button ng-click="addTorrent(torrent)" class="btn btn-default glyphicon glyphicon-download"></button>
                     <a href="{{torrent.magnetLink}}">Magnet</a>
                 </td>
             </tr>

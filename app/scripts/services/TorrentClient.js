@@ -13,22 +13,24 @@ angular.module('torrentSubscribeFrontendApp')
     var api = {};
 
     var torrentResource = $resource(appConstants.clientHost + "/torrent",
-        { magnet_link : '@magnet_link' },
+        { magnet_link : '@magnet_link' , type : '@type' },
         {
             save : {method:'POST'},
             get : {method:'GET'}
         }
     );
 
-    api.add = function(magnetLink, callback) {
-        torrentResource.save({'magnet_link': magnetLink}, function(data) {
-            callback(angular.fromJson(data));
+    api.add = function(magnetLink, type, callback) {
+        torrentResource.save({'magnet_link': magnetLink, 'type' : type}, function(data) {
+            if (callback)
+                callback(angular.fromJson(data));
         });
     };
 
     api.getAll = function(callback) {
         torrentResource.get(function(data) {
-            callback(angular.fromJson(data));
+            if (callback)
+                callback(angular.fromJson(data));
         });
     };
 

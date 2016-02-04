@@ -1,0 +1,31 @@
+<div class="modal fade in" id="add-torrent-modal-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-show="true" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">Add torrent {{torrent.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="torrent-location" class="control-label">Location:</label>
+                        <select class="form-control" id="torrent-type" ng-model="type">
+                            <option value="movie">Movie</option>
+                            <option value="tvshow">TV Show</option>
+                            <option value="game">Game</option>
+                            <option value="music">Music</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="download()">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
