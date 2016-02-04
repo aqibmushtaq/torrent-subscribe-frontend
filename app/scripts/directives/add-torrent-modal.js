@@ -12,6 +12,7 @@ angular.module('torrentSubscribeFrontendApp')
         templateUrl: 'scripts/directives/add-torrent-modal-dialog.html',
         restrict: 'E',
         link: function postLink(scope, element, attrs) {
+            scope.type = 'default';
             scope.close = function() {
                 scope.$destroy();
                 element.parent().empty();
