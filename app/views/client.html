@@ -6,16 +6,13 @@
         <div class="form-group col-xs-12 col-md-8">
             <input type="text" class="form-control" id="search-term" ng-model="search.name" placeholder="Filter...">
         </div>
-        <div class="form-group col-xs-12 col-md-3">
+        <div class="form-group col-xs-12 col-md-4">
             <select class="form-control" ng-model="search.state">
                 <option value="">All</option>
                 <option value="Downloading">Downloading</option>
                 <option value="Queued">Queued</option>
                 <option value="Paused">Paused</option>
             </select>
-        </div>
-        <div class="form-group col-xs-12 col-md-1">
-            <button class="btn btn-primary" ng-click="getClientTorrents()">Refresh</button>
         </div>
     </form>
 
