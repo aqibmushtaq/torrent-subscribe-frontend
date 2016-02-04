@@ -20,7 +20,7 @@ angular.module('torrentSubscribeFrontendApp')
             Object.keys(result).forEach(function(key) {
                 $scope.torrents.push(result[key]);
             });
-            $timeout($scope.getClientTorrents, 1000);
+            $timeout($scope.getClientTorrents, 10000);
         });
     };
 
