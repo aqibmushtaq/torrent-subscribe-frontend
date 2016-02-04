@@ -18,6 +18,7 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Upload date</th>
                 <th>Size</th>
                 <th>Seeders</th>
                 <th>Leechers</th>
@@ -26,11 +27,12 @@
         </thead>
         <tbody>
             <tr class="" ng-repeat="torrent in torrents">
-                <td class="col-xs-6">{{torrent.name}}</td>
-                <td class="col-xs-2">{{torrent.size}}</td>
-                <td class="col-xs-2">{{torrent.seeders}}</td>
-                <td class="col-xs-2">{{torrent.leechers}}</td>
-                <td class="col-xs-2">
+                <td class="col-xs-7">{{torrent.name}}</td>
+                <td class="col-xs-1">{{torrent.uploadDate}}</td>
+                <td class="col-xs-1">{{torrent.size}}</td>
+                <td class="col-xs-1">{{torrent.seeders}}</td>
+                <td class="col-xs-1">{{torrent.leechers}}</td>
+                <td class="col-xs-1">
                     <button ng-click="addTorrent(torrent)" class="btn btn-default glyphicon glyphicon-download"></button>
                     <a href="{{torrent.magnetLink}}">Magnet</a>
                 </td>
