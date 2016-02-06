@@ -12,6 +12,7 @@
                 <option value="Downloading">Downloading</option>
                 <option value="Queued">Queued</option>
                 <option value="Paused">Paused</option>
+                <option value="Error">Error</option>
             </select>
         </div>
     </form>
@@ -23,6 +24,7 @@
                 <th>State</th>
                 <th>Speed</th>
                 <th>Progress</th>
+                <th>ETA</th>
                 <th>Downloaded</th>
                 <th>Total</th>
                 <th>Seeders</th>
@@ -31,10 +33,11 @@
         </thead>
         <tbody>
             <tr class="" ng-repeat="torrent in torrents | filter:search:strict">
-                <td class="col-xs-5">{{torrent.name}}</td>
+                <td class="col-xs-4">{{torrent.name}}</td>
                 <td class="col-xs-1">{{torrent.state}}</td>
                 <td class="col-xs-1">{{torrent.download_payload_rate | bytes : 1 : true}}</td>
                 <td class="col-xs-1">{{torrent.progress | number : 2}}%</td>
+                <td class="col-xs-1">{{torrent.eta | date}}</td>
                 <td class="col-xs-1">{{torrent.total_done | bytes}}</td>
                 <td class="col-xs-1">{{torrent.total_size | bytes}}</td>
                 <td class="col-xs-1">{{torrent.total_seeds}}</td>
