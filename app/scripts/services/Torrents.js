@@ -8,11 +8,11 @@
 * Service for torrents
 */
 angular.module('torrentSubscribeFrontendApp')
-.service('Torrents', function ($resource, appConstants) {
+.service('Torrents', function ($resource, constants) {
 
     var api = {};
 
-    var searchResource = $resource(appConstants.searchHost + '/search', {},
+    var searchResource = $resource(constants.searchHost + '/search', {},
         { q : '@q' }
     );
 

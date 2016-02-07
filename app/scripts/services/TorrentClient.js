@@ -8,11 +8,11 @@
 * Service for torrent client
 */
 angular.module('torrentSubscribeFrontendApp')
-.service('TorrentClient', function ($resource, appConstants) {
+.service('TorrentClient', function ($resource, constants) {
 
     var api = {};
 
-    var torrentResource = $resource(appConstants.clientHost + "/torrent",
+    var torrentResource = $resource(constants.clientHost + "/api/torrent",
         { magnet_link : '@magnet_link' , type : '@type' },
         {
             save : {method:'POST'},

@@ -5,3 +5,5 @@ dist
 bower_components
 app/scripts/constants.js
 development-constants.json
+logs/
+config/
