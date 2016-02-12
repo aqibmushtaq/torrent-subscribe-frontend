@@ -2,25 +2,29 @@
 
 /**
 * @ngdoc function
-* @name torrentSubscribeFrontendApp.controller:MainCtrl
+* @name torrentSubscribeFrontendApp.controller:SearchCtrl
 * @description
-* # MainCtrl
+* # SearchCtrl
 * Controller of the torrentSubscribeFrontendApp
 */
 angular.module('torrentSubscribeFrontendApp')
-.controller('MainCtrl', ['$scope', '$location', function ($scope, $location) {
-    $scope.pages = [
-        {title: "Home", path: "/"},
-        {title: "Download list", path: "/client"}
-    ];
+.controller('SearchCtrl', ['$scope', '$compile', 'Torrents', function ($scope, $compile, Torrents) {
 
-    $scope.currentPage = $location.path();
+    $scope.searchTerm = "";
 
-    $scope.go = function(path) {
-        $location.path(path);
+    $scope.torrent = {};
+    $scope.torrents = [];
+    $scope.updatelist = function() {
+        Torrents.query($scope.searchTerm, function(data) {
+            $scope.torrents = data.results;
+        });
     };
 
-    $scope.isCurrent = function(page) {
-        return page === $location.path();
-    }
+    $scope.addTorrent = function(torrent) {
+        $scope.torrent = torrent;
+        var dialogScope = $scope.$new();
+        dialogScope.torrent = $scope.torrent;
+        angular.element('#modal-area').html($compile('<add-torrent-modal />')(dialogScope));
+    };
+
 }]);
