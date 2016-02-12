@@ -393,7 +393,7 @@ module.exports = function (grunt) {
             name: 'constants',
           },
           constants: {
-            appConstants: grunt.file.readJSON('development-constants.json')
+            constants: grunt.file.readJSON('development-constants.json')
           },
           values: {
             debug: true
