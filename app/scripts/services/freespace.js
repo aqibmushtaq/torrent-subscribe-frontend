@@ -8,7 +8,7 @@
 * Service in the torrentSubscribeFrontendApp.
 */
 angular.module('torrentSubscribeFrontendApp')
-.service('Freespace', function ($resource, constants) {
+.service('Freespace', ['$resource', 'constants', function($resource, constants) {
     var api = {};
 
     var freespaceResource = $resource(constants.clientHost + '/api/system/space');
@@ -21,4 +21,4 @@ angular.module('torrentSubscribeFrontendApp')
     };
 
     return api;
-});
+}]);

@@ -7,7 +7,7 @@
 * # freeSpace
 */
 angular.module('torrentSubscribeFrontendApp')
-.directive('freeSpace', function ($timeout, Freespace) {
+.directive('freeSpace', ['$timeout', 'Freespace', function ($timeout, Freespace) {
     return {
         templateUrl: 'scripts/directives/freespace.html',
         restrict: 'E',
@@ -21,4 +21,4 @@ angular.module('torrentSubscribeFrontendApp')
             getFreespace();
         }
     };
-});
+}]);
