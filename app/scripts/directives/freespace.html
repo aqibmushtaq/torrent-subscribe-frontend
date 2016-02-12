@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Location</th>
+            <th>Free space</th>
+            <th>Total space</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="directory in directories">
+            <td>{{directory.label}}</td>
+            <td>{{directory.free | bytes}}</td>
+            <td>{{directory.total | bytes}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -8,7 +8,6 @@ var crypto = require('crypto');
 var path = require('path');
 var fs = require('fs');
 var request = require('request');
-var async = require('async');
 var log4js = require('log4js');
 var config = require('./config')();
 var nodeDeluge = require('node-deluge');
@@ -40,7 +39,6 @@ setInterval(nodeDelugeSignIn, 3600000);
 
 // all environments
 app.set('port', config.port || 3001);
-app.set('async', async);
 app.set('request', request);
 app.use(function(req, res, next) {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
