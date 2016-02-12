@@ -11,7 +11,8 @@ angular.module('torrentSubscribeFrontendApp')
 .controller('MainCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.pages = [
         {title: "Home", path: "/"},
-        {title: "Download list", path: "/client"}
+        {title: "Download list", path: "/client"},
+        {title: "Free space", path: "/freespace"}
     ];
 
     $scope.currentPage = $location.path();

@@ -29,6 +29,9 @@ angular
   .when('/client', {
     templateUrl: 'views/client.html',
     controller: 'ClientCtrl'
+  })
+  .when('/freespace', {
+    templateUrl: 'views/freespace.html'
   });
 
   // configure html5 to get links working on jsfiddle
