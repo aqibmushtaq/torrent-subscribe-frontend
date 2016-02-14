@@ -12,7 +12,8 @@
     "log4js": "0.6.x",
     "node-deluge": "1.0.1",
     "phantomjs": "^1.9.19",
-    "request": "2.51.x"
+    "request": "2.51.x",
+    "socket.io": "^1.4.5"
   },
   "repository": {},
   "devDependencies": {

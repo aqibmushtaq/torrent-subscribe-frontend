@@ -8,7 +8,8 @@
 * Service for torrent client
 */
 angular.module('torrentSubscribeFrontendApp')
-.service('TorrentClient', function ($resource, constants) {
+.service('TorrentClient', ['$resource', 'constants', 'socket',
+function ($resource, constants, socket) {
 
     var api = {};
 
@@ -16,7 +17,7 @@ angular.module('torrentSubscribeFrontendApp')
         { magnet_link : '@magnet_link' , type : '@type' },
         {
             save : {method:'POST'},
-            get : {method:'GET'}
+            get : {method:'GET', isArray: true}
         }
     );
 
@@ -34,5 +35,11 @@ angular.module('torrentSubscribeFrontendApp')
         });
     };
 
+    api.onChange = function (callback) {
+        socket.on('torrent_changed', function(data) {
+            callback(angular.fromJson(data));
+        });
+    }
+
     return api;
-});
+}]);

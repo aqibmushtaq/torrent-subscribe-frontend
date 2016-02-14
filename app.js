@@ -2,8 +2,6 @@
   * Module dependencies.
   */
 var express = require('express');
-var http = require('http');
-var https = require('https');
 var crypto = require('crypto');
 var path = require('path');
 var fs = require('fs');
@@ -65,15 +63,18 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+var server = app.listen(app.get('port'), function(){
+    console.log('Express server listening on port ' + app.get('port'));
+    logger.debug('Express server listening on port ' + app.get('port'));
+});
+
+var io = require('socket.io')(server);
+app.set('io', io);
+
 // Attach routes
 fs.readdirSync('./controllers').forEach(function (file) {
     if(file.substr(-3) == '.js') {
         route = require('./controllers/' + file);
         route.controller(app);
     }
-});
-
-http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-    logger.debug('Express server listening on port ' + app.get('port'));
 });

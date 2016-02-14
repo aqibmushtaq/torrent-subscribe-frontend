@@ -8,7 +8,8 @@
 * Controller of the torrentSubscribeFrontendApp
 */
 angular.module('torrentSubscribeFrontendApp')
-.controller('ClientCtrl', ['$scope', '$timeout', 'TorrentClient', function ($scope, $timeout, TorrentClient) {
+.controller('ClientCtrl', ['$scope', '$timeout', 'TorrentClient',
+function ($scope, $timeout, TorrentClient) {
 
     $scope.filterTerm = "";
 
@@ -16,11 +17,23 @@ angular.module('torrentSubscribeFrontendApp')
 
     $scope.getClientTorrents = function() {
         TorrentClient.getAll(function(result) {
-            $scope.torrents = [];
-            Object.keys(result).forEach(function(key) {
-                $scope.torrents.push(result[key]);
-            });
-            $timeout($scope.getClientTorrents, 10000);
+            $scope.torrents = result;
+            TorrentClient.onChange(onTorrentChange);
+        });
+    };
+
+    var onTorrentChange = function(changedTorrents) {
+        changedTorrents.forEach(function(changedTorrent) {
+            var torrentIndex = _.findIndex($scope.torrents, {id: changedTorrent.id});
+            // new torrent
+            if (torrentIndex < 0) {
+                $scope.torrents.push(changedTorrent);
+                return;
+            }
+
+            // changed torrent
+            $scope.torrents[torrentIndex] = changedTorrent;
+            $scope.$apply();
         });
     };
 
