@@ -23,6 +23,9 @@ function ($scope, $timeout, TorrentClient) {
     };
 
     var onTorrentChange = function(changedTorrents) {
+        if (!changedTorrents) {
+            return;
+        }
         changedTorrents.forEach(function(changedTorrent) {
             var torrentIndex = _.findIndex($scope.torrents, {id: changedTorrent.id});
             // new torrent

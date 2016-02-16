@@ -7,6 +7,37 @@ function Torrent(app) {
     this.logger = this.app.get("logger");
     this.logger.trace("[torrent] start");
     this.torrents = [];
+    this.changedTorrents = [];
+    this.sockets = [];
+
+    this.attachSocket = (socket) => {
+        var socketIndex = _.findIndex(this.sockets, {id: socket.id});
+        if (socketIndex < 0) {
+            this.sockets.push(socket);
+            return;
+        }
+        this.sockets[socketIndex] = socket;
+    };
+
+    this.detachSocket = (socket) => {
+        this.sockets = this.sockets.filter((s) => {
+            s.id == socket.id;
+        });
+    };
+
+    this.notifySockets = () => {
+        this.sockets.forEach((socket) => {
+            socket.emit('torrent_changed', JSON.stringify(this.getStaleChangedTorrents()));
+        });
+    };
+
+    this.getStaleTorrents = () => {
+        return this.torrents;
+    };
+
+    this.getStaleChangedTorrents = () => {
+        return this.changedTorrents;
+    };
 
     this.getTorrents = (cb) => {
         this.app.get("node-deluge").get_status(function(result) {
@@ -31,7 +62,8 @@ function Torrent(app) {
         this.getTorrents((newTorrents, error) => {
             if (error) {
                 this.logger.trace("[torrent.getChangedTorrents] error");
-                cb(torrents, error);
+                setTimeout(this.getChangedTorrents, 1000);
+                if (cb) cb(torrents, error);
                 return;
             }
             var changedTorrents = [];
@@ -42,11 +74,20 @@ function Torrent(app) {
                     changedTorrents.push(newTorrent);
             });
             this.torrents = newTorrents;
+            this.changedTorrents = changedTorrents;
             this.logger.trace("[torrent.getChangedTorrents] found " + changedTorrents.length + " changed torrents");
-            cb(changedTorrents);
+
+            if (changedTorrents.length > 0) {
+                this.logger.trace("[torrent.getChangedTorrents] notify sockets: " + this.sockets.length + ", changed torrents: " + changedTorrents.length);
+                this.notifySockets();
+            }
+
+            // run again once complete
+            setTimeout(this.getChangedTorrents, 1000);
+            if (cb) cb(changedTorrents);
         });
     };
-
+    this.getChangedTorrents();
 };
 
 module.exports = Torrent;
