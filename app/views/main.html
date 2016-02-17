@@ -17,11 +17,11 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Upload date</th>
-                <th>Size</th>
-                <th>Seeders</th>
-                <th>Leechers</th>
+                <th><a ng-click="order('name')">Name</a></th>
+                <th><a ng-click="order('uploadDate')">Upload date</a></th>
+                <th><a ng-click="order('size')">Size</a></th>
+                <th><a ng-click="order('seeders')">Seeders</a></th>
+                <th><a ng-click="order('leechers')">Leechers</a></th>
                 <th>Download</th>
             </tr>
         </thead>
