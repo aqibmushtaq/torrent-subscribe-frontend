@@ -4,10 +4,10 @@
 
     <form>
         <div class="form-group col-xs-12 col-md-8">
-            <input type="text" class="form-control" id="search-term" ng-model="search.name" placeholder="Filter...">
+            <input type="text" class="form-control" id="search-term" ng-model="$storage.client_search_filter_search.name" placeholder="Filter..." autocomplete="off">
         </div>
         <div class="form-group col-xs-12 col-md-4">
-            <select class="form-control" ng-model="search.state">
+            <select class="form-control" ng-model="$storage.client_search_filter_search.state">
                 <option value="">All</option>
                 <option value="Downloading">Downloading</option>
                 <option value="Queued">Queued</option>
@@ -32,7 +32,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="" ng-repeat="torrent in torrents | filter:search:strict">
+            <tr class="" ng-repeat="torrent in torrents |
+                                    filter:$storage.client_search_filter_search:strict |
+                                    orderBy:$storage.client_list_order.field:$storage.client_list_order.reverse">
                 <td class="col-xs-4">{{torrent.name}}</td>
                 <td class="col-xs-1">{{torrent.state}}</td>
                 <td class="col-xs-1">{{torrent.download_payload_rate | bytes : 1 : true}}</td>

@@ -13,7 +13,8 @@ angular
     'ngResource',
     'ngSanitize',
     'ngRoute',
-    'constants'
+    'constants',
+    'ngStorage'
   ]).config( [
     '$compileProvider',
     function( $compileProvider )

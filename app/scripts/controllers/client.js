@@ -8,11 +8,10 @@
 * Controller of the torrentSubscribeFrontendApp
 */
 angular.module('torrentSubscribeFrontendApp')
-.controller('ClientCtrl', ['$scope', '$timeout', '$filter', 'TorrentClient',
-function ($scope, $timeout, $filter, TorrentClient) {
+.controller('ClientCtrl', ['$scope', '$timeout', '$filter', '$localStorage', '$sessionStorage', 'TorrentClient',
+function ($scope, $timeout, $filter, $localStorage, $sessionStorage, TorrentClient) {
 
-    $scope.filterTerm = "";
-
+    $scope.$storage = $localStorage;
     $scope.torrents = [];
 
     $scope.getClientTorrents = function() {
@@ -42,9 +41,11 @@ function ($scope, $timeout, $filter, TorrentClient) {
 
     var orderBy = $filter("orderBy");
     $scope.order = function(orderField) {
-        $scope.reverse = ($scope.orderField == orderField) ? !$scope.reverse : false;
-        $scope.orderField = orderField;
-        $scope.torrents = orderBy($scope.torrents, orderField, $scope.reverse);
+        if (!$scope.$storage.client_list_order) {
+            $scope.$storage.client_list_order = {};
+        }
+        $scope.$storage.client_list_order.reverse = ($scope.$storage.client_list_order.field == orderField) ? !$scope.$storage.client_list_order.reverse  : false;
+        $scope.$storage.client_list_order.field = orderField;
     };
 
     $scope.getClientTorrents();
