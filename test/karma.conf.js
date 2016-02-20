@@ -29,8 +29,8 @@ module.exports = function(config) {
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/bower_components/moment/moment.js',
-      'app/bower_components/underscore/underscore.js',
       'app/bower_components/ngstorage/ngStorage.js',
+      'app/bower_components/lodash/lodash.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

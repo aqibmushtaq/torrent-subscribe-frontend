@@ -2,8 +2,10 @@
   "name": "torrentsubscribefrontend",
   "version": "0.0.0",
   "dependencies": {
+    "archiver": "^0.21.0",
     "async": "~0.2.10",
     "deluge": "1.7.0",
+    "directory-tree": "^0.1.1",
     "diskspace": "^1.0.2",
     "express": "3.4.4",
     "jasmine-core": "^2.4.1",

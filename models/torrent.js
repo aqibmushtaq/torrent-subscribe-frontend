@@ -58,7 +58,6 @@ function Torrent(app) {
     };
 
     this.getChangedTorrents = (cb) => {
-        this.logger.trace("[torrent.getChangedTorrents] getting changed torrents");
         this.getTorrents((newTorrents, error) => {
             if (error) {
                 this.logger.trace("[torrent.getChangedTorrents] error");
@@ -75,10 +74,8 @@ function Torrent(app) {
             });
             this.torrents = newTorrents;
             this.changedTorrents = changedTorrents;
-            this.logger.trace("[torrent.getChangedTorrents] found " + changedTorrents.length + " changed torrents");
 
             if (changedTorrents.length > 0) {
-                this.logger.trace("[torrent.getChangedTorrents] notify sockets: " + this.sockets.length + ", changed torrents: " + changedTorrents.length);
                 this.notifySockets();
             }
 
