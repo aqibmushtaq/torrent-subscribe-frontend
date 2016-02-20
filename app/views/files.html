@@ -15,14 +15,13 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th><a ng-click="order('name')">Name</a></th>
-                <th><a ng-click="order('size')">Type</a></th>
+                <th>Name</th>
                 <th>Download</th>
             </tr>
         </thead>
         <tbody>
             <tr class="" ng-repeat="(key, val) in currentNodeChildren">
-                <td class="col-xs-7">
+                <td class="col-xs-10">
                     <div ng-switch on="val.type">
                         <div ng-switch-when="directory">
                             <a ng-click="setPath(val.path)">{{val.name}}</a>
@@ -32,8 +31,7 @@
                         </div>
                     </div>
                 </td>
-                <td class="col-xs-1">{{val.path}}</td>
-                <td class="col-xs-1">
+                <td class="col-xs-2">
                     <a target="_blank" download="{{val.name}}" ng-href="{{getDownloadLink(val.path)}}" class="btn btn-default glyphicon glyphicon-download"></a>
                 </td>
             </tr>
