@@ -30,6 +30,19 @@ module.exports.controller = function (app) {
 
         var path = directory + '/' + (req.query.path || '');
         logger.trace("[/api/files GET] path" + path);
+
+        //if file then serve as is
+        try {
+            var stat = fs.statSync(path);
+        } catch (e) {
+            res.send(404);
+        }
+        if (stat.isFile()) {
+            res.sendfile(path);
+            return;
+        }
+
+        //found a directory, zip it up
         var filename = _.last(path.split('/'));
         if (filename == '')
             filename = 'root';
@@ -49,12 +62,8 @@ module.exports.controller = function (app) {
         //this is the streaming magic
         archive.pipe(res);
 
-        var stat = fs.statSync(path);
-        if (stat.isFile()) {
-            archive.file(path);
-        } else if (stat.isDirectory()) {
-            archive.directory(path, "");
-        }
+        //add the directory
+        archive.directory(path, "");
 
         archive.finalize();
     });
