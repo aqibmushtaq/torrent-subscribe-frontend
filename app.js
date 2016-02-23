@@ -9,6 +9,8 @@ var request = require('request');
 var log4js = require('log4js');
 var config = require('./config')();
 var nodeDeluge = require('node-deluge');
+var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
 var app = express();
 
 // Setup the logger
@@ -20,6 +22,9 @@ log4js.configure({
 });
 var logger = log4js.getLogger(config.logLevel);
 app.set('logger', logger);
+
+// Connect to DB
+mongoose.connect(config.mongo.url);
 
 app.set('deluge-directories', config.deluge.directories);
 
@@ -35,6 +40,8 @@ var nodeDelugeSignIn = () => {
 nodeDelugeSignIn();
 setInterval(nodeDelugeSignIn, 3600000);
 
+app.set('config', config);
+
 // all environments
 app.set('port', config.port || 3001);
 app.set('request', request);
@@ -47,13 +54,46 @@ app.use(function(req, res, next) {
 
   next();
 });
-
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(app.router);
+app.use(function(req, res, next) {
+    if (!req.path.startsWith('/api') || req.path.startsWith('/api/p/')) {
+        next();
+        return;
+    }
+
+    // check header or url parameters or post parameters for token
+    var token = req.body.token || req.query.token || req.headers['token'];
+
+    // decode token
+    if (token) {
+
+        // verifies secret and checks exp
+        jwt.verify(token, config.secret, function(err, decoded) {
+            if (err) {
+                return res.status(401).json({ success: false, message: 'Failed to authenticate token.' });
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next();
+            }
+        });
+
+    } else {
+
+        // if there is no token
+        // return an error
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
+
+    }
+});
 app.use(express.static(path.join(__dirname, 'app')));
+app.use(app.router);
 app.use(function(req, res) {
   res.sendfile(__dirname + '/app/index.html');
 });

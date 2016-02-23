@@ -33,9 +33,14 @@ angular
     })
     .when('/freespace', {
         templateUrl: 'views/freespace.html'
-    }).when('/files', {
+    })
+    .when('/files', {
         templateUrl: 'views/files.html',
         controller: 'FilesCtrl'
+    })
+    .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
     });
 
     // configure html5 to get links working on jsfiddle

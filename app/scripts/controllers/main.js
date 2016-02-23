@@ -8,7 +8,8 @@
 * Controller of the torrentSubscribeFrontendApp
 */
 angular.module('torrentSubscribeFrontendApp')
-.controller('MainCtrl', ['$scope', '$location', function ($scope, $location) {
+.controller('MainCtrl', ['$scope', '$location', 'user',
+function ($scope, $location, user) {
     $scope.pages = [
         {title: "Home", path: "/"},
         {title: "Download list", path: "/client"},
@@ -25,4 +26,11 @@ angular.module('torrentSubscribeFrontendApp')
     $scope.isCurrent = function(page) {
         return page === $location.path();
     }
+
+    $scope.isLoggedIn = user.getIsLoggedIn;
+    $scope.logout = function() {
+        $location.path('/login');
+        user.logout();
+    };
+
 }]);
