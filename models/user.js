@@ -21,8 +21,7 @@ function User(app, user) {
 
     var _authenticateMaintUser = (password) => {
         var maintUser = app.get('config').maint_user;
-        if (maintUser.username == this.user.username && maintUser.password == this.user.password)
-            return true;
+        return maintUser.username == this.user.username && maintUser.password == password;
     };
 
     this.authenticate = (password) => {

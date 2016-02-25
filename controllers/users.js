@@ -101,6 +101,7 @@ module.exports.controller = (app) => {
                 message: 'Enjoy your token!',
                 token: maintUserObj.getToken()
             });
+            return;
         }
 
         // find the user
