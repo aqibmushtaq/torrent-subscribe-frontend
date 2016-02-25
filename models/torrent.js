@@ -3,7 +3,6 @@ var async = require("async");
 
 function Torrent(app) {
     this.app = app;
-    console.log("Torrent: this.app: " + this.app)
     this.logger = this.app.get("logger");
     this.logger.trace("[torrent] start");
     this.torrents = [];
