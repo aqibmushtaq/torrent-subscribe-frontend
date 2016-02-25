@@ -14,6 +14,7 @@
     "karma": "^0.13.19",
     "lodash": "^4.1.0",
     "log4js": "0.6.x",
+    "memory-cache": "^0.1.4",
     "mongoose": "^4.4.4",
     "mongoose-unique-validator": "^1.0.1",
     "node-deluge": "1.0.1",

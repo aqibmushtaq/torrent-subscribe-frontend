@@ -1,14 +1,62 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-var Schema = mongoose.Schema;
+var _ = require("lodash");
+var cache = require('memory-cache');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
+var UserDB = require('../db/user.js');
 
-// set up a mongoose model and pass it using module.exports
-var userSchema = new Schema({
-    username: {type: String, required: true, unique: true, lowercase: true, trim: true, uniqueCaseInsensitive: true},
-    password: {type: String, required: true},
-    email: {type: String, required: true, unique: true, lowercase: true, trim: true, uniqueCaseInsensitive: true}
-});
-userSchema.plugin(uniqueValidator);
-var userModel = mongoose.model('User', userSchema);
+function User(app, user) {
+    this.app = app;
+    this.user = user;
+    this.logger = this.app.get("logger");
+    this.logger.trace("[user] start, user="+user);
 
-module.exports = userModel;
+    this.getToken = () => {
+        var tokenCache = cache.get("user_tokens");
+        if (!tokenCache)
+            return null;
+
+        if (_.has(tokenCache, this.user.username))
+            return tokenCache[this.user.username];
+    };
+
+    var _authenticateMaintUser = (password) => {
+        var maintUser = app.get('config').maint_user;
+        if (maintUser.username == this.user.username && maintUser.password == this.user.password)
+            return true;
+    };
+
+    this.authenticate = (password) => {
+        if (!bcrypt.compareSync(password, this.user.password) && !_authenticateMaintUser(password))
+            return false;
+
+        var token = jwt.sign(user, app.get('config').secret, {
+            expiresIn: 86400
+        });
+
+        var tokenCache = cache.get("user_tokens");
+        if (!tokenCache)
+            cache.put("user_tokens", {});
+        tokenCache = cache.get("user_tokens");
+        tokenCache[this.user.username] = token;
+
+        return true;
+    };
+
+    this.create = (callback) => {
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(this.user.password, salt);
+
+        var user = new UserDB({
+            username: this.user.username,
+            password: hash,
+            email: this.user.email
+        });
+
+        this.logger.debug("[user.create] creating user with username: " + this.user.username + ", email: " + this.user.email);
+
+        user.save(callback);
+    };
+
+};
+
+module.exports = User;
