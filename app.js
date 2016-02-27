@@ -11,6 +11,7 @@ var config = require('./config')();
 var nodeDeluge = require('node-deluge');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
+cors = require('cors');
 var app = express();
 
 // Setup the logger
@@ -45,6 +46,7 @@ app.set('config', config);
 // all environments
 app.set('port', config.port || 3001);
 app.set('request', request);
+app.use(cors());
 app.use(function(req, res, next) {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   logger.info('[%s] %s %s', ip, req.method, req.url);

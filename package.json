@@ -5,6 +5,7 @@
     "archiver": "^0.21.0",
     "async": "~0.2.10",
     "bcrypt": "^0.8.5",
+    "cors": "^2.7.1",
     "deluge": "1.7.0",
     "directory-tree": "^0.1.1",
     "diskspace": "^1.0.2",

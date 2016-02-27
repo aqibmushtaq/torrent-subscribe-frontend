@@ -49,4 +49,4 @@ angular
     function($routeProvider, $httpProvider){
         $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
     }
-]);;
+]);
