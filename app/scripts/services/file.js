@@ -8,7 +8,7 @@
 * Service in the torrentSubscribeFrontendApp.
 */
 angular.module('torrentSubscribeFrontendApp')
-.service('file', function ($resource, constants) {
+.service('file', function ($resource, constants, $sessionStorage) {
 
     var api = {};
 
@@ -38,7 +38,7 @@ angular.module('torrentSubscribeFrontendApp')
     };
 
     api.getDownloadLink = function (file, directoryType) {
-        return '/api/files/download?path=' + file + '&directory_type=' + directoryType;
+        return '/api/files/download?path=' + file + '&directory_type=' + directoryType + '&token=' + $sessionStorage.user_token;
     };
 
     return api;
