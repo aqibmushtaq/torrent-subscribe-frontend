@@ -50,7 +50,7 @@ app.use(function(req, res, next) {
   logger.info('[%s] %s %s', ip, req.method, req.url);
 
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Origin,X-Requested-With,Content-Type,Accept,Key');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Origin,X-Requested-With,Content-Type,Accept,Key,Access-Control-Allow-Headers,token');
 
   next();
 });
