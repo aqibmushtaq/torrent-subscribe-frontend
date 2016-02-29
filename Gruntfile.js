@@ -412,46 +412,6 @@ module.exports = function (grunt) {
           }
         }
     }
-  //   ngconstant: {
-  //   options: {
-  //     name: 'config',
-  //     dest: 'config.js',
-  //     constants: {
-  //       package: grunt.file.readJSON('package.json')
-  //     },
-  //     values: {
-  //       debug: true
-  //     }
-  //   },
-  //   build: {
-  //   }
-  // }
-    // ngconstant: {
-    //
-    //     // Environment targets
-    //     development: [{
-    //       dest: '.tmp/scripts/config.js',
-    //       wrap: '"use strict";\n\n <%= __ngModule %>',
-    //       name: 'config',
-    //       constants: {
-    //         ENV: {
-    //           name: 'development',
-    //           foo: 'We are in development!'
-    //         }
-    //       }
-    //     }],
-    //     production: [{
-    //       dest: '.tmp/scripts/config.js',
-    //       wrap: '"use strict";\n\n <%= __ngModule %>',
-    //       name: 'config',
-    //       constants: {
-    //         ENV: {
-    //           name: 'production',
-    //           foo: 'We are in production!'
-    //         }
-    //       }
-    //     }]
-    // }
   });
 
 
